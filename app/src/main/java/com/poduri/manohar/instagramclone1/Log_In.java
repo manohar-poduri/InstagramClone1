@@ -26,6 +26,7 @@ public class Log_In extends AppCompatActivity implements View.OnClickListener{
     private TextView txtgetdata;
     private Button btnGetAllData;
     private String AllKickboxers;
+    private Button btnTransition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +42,7 @@ public class Log_In extends AppCompatActivity implements View.OnClickListener{
         edtpunchpower = findViewById(R.id.edtpunchpower);
         txtgetdata = findViewById(R.id.txtgetdata);
         btnGetAllData = findViewById(R.id.btnGetAllData);
+        btnTransition = findViewById(R.id.btnNextActivity);
 
         txtgetdata.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,6 +66,12 @@ public class Log_In extends AppCompatActivity implements View.OnClickListener{
 
                 AllKickboxers = "";
                 ParseQuery<ParseObject> queryAll = ParseQuery.getQuery("Kickboxer");
+
+               // queryAll.whereGreaterThan("punchpower",100);
+                queryAll.whereGreaterThanOrEqualTo("kickspeed",35);
+                queryAll.setLimit(2);
+
+
                 queryAll.findInBackground(new FindCallback<ParseObject>() {
                     @Override
                     public void done(List<ParseObject> objects, ParseException e) {
@@ -85,6 +93,14 @@ public class Log_In extends AppCompatActivity implements View.OnClickListener{
                         }
                     }
                 });
+            }
+        });
+
+
+        btnTransition.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
     }
